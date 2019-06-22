@@ -2003,9 +2003,9 @@ os.execute("rm -fr plugins_/help_rep.lua")
 os.execute("rm -fr plugins_/ZHRFA.lua")
 os.execute("rm -fr plugins_/games.lua")
 os.execute('wget https://raw.githubusercontent.com/surse/iraq/master/IRAQ.lua') 
-os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/help_rep.lua') 
-os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/ZHRFA.lua') 
-os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/games.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/help_rep.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/ZHRFA.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/games.lua') 
 sleep(0.5) 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السورس ✔ ', 1, 'md') 
 dofile('IRAQ.lua')  
@@ -4240,9 +4240,9 @@ os.execute("rm -fr plugins_/help_rep.lua")
 os.execute("rm -fr plugins_/ZHRFA.lua")
 os.execute("rm -fr plugins_/games.lua")
 os.execute('wget https://raw.githubusercontent.com/surse/iraq/master/IRAQ.lua') 
-os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/help_rep.lua') 
-os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/ZHRFA.lua') 
-os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/games.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/help_rep.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/ZHRFA.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/games.lua') 
 sleep(0.5) 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السورس ✔ ', 1, 'md') 
 dofile('IRAQ.lua')  
@@ -4875,17 +4875,17 @@ end
 end
 if text == 'السورس' or text =='سورس' or text=='يا سورس' then
 local text = [[ 
-🎫┇اهلا بك في سورس عراق 🇮🇶┇
+🎫┇اهلا بك في سورس بيكا 🇮🇶┇
 
-🇮🇶┇[IRAQ TEAM](t.me/BECIQ) 
+🇮🇶┇[مطور السورس](t.me/Ha_ssin) 
 
-☑️┇[قناه السورس](t.me/BECIQ)
+☑️┇[قناه السورس](t.me/Ha_ssin2)
 
-🔘┇[قناه شروحات سورس📍](t.me/BE_CIQ) 
+🔘┇[قناه شروحات سورس📍](t.me/Ha_ssin2) 
 
-🔖┇ [لـ تنصيب سورس عراق☑️](t.me/BECIQ) 
+🔖┇ [لـ تنصيب سورس بيكا☑️](t.me/Ha_ssin2) 
 
-📮┇[لـ تواصل📩](t.me/Bec7bot) 
+📮┇[لـ تواصل📩](t.me/Twaselto_bot) 
 ]] 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,text, 1, 'md')   
 end
@@ -10439,21 +10439,21 @@ tdcli_function ({   ID = "GetMessage", chat_id_ = data.chat_id_,   message_id_ =
 elseif (data.ID == "UpdateOption" and data.name_ == "my_id") then  
 local filess = io.open("plugins_/help_rep.lua","r")
 if not filess then
-os.execute('cd plugins_ ;wget https://raw.githubusercontent.com/surse/IRAQ/master/plugins_/help_rep.lua')
+os.execute('cd plugins_ ;wget https://raw.githubusercontent.com/pika-a/pika/master/plugins_/help_rep.lua')
 end
 local filess = io.open("requfiles/JSON.lua","r")
 if not filess then
-os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/IRAQQ/master/requfiles/JSON.lua') 
+os.execute('cd requfiles ;wget https://raw.githubusercontent.com/pika-a/pika/master/requfiles/JSON.lua') 
 dofile('IRAQ.lua')  
 end
 local filess = io.open("requfiles/dkjson.lua","r")
 if not filess then
-os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/IRAQQ/master/requfiles/dkjson.lua') 
+os.execute('cd requfiles ;wget https://raw.githubusercontent.com/pika-a/pika/master/requfiles/dkjson.lua') 
 dofile('IRAQ.lua')  
 end
 local filess = io.open("requfiles/serpent.lua","r")
 if not filess then
-os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/IRAQQ/master/requfiles/serpent.lua') 
+os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/pika-a/pika/requfiles/serpent.lua') 
 dofile('IRAQ.lua')  
 end
 local list = IRAQBOT:smembers(IRAQ_ID.."usersbot")
