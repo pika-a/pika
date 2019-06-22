@@ -4,7 +4,7 @@ URL = require('socket.url')
 HTTPS = require ("ssl.https")  
 https = require ("ssl.https") 
 http  = require ("socket.http") 
-IRAQBOT = redis.connect('127.0.0.1', 6379) 
+pikaBOT = redis.connect('127.0.0.1', 6379) 
 local ok, no =  pcall(function() 
 json = loadfile("./requfiles/JSON.lua")() end)
 if not ok then 
@@ -20,7 +20,7 @@ JSON  = loadfile("./requfiles/dkjson.lua")() end)
 if not ok then 
 print('\27[31m!THE File Not dkjson.lua !\n\27[39m')
 end
-DEVIRAQ = io.popen("echo $SSH_CLIENT | awk '{ print $1}'"):read('*a')
+DEVpika = io.popen("echo $SSH_CLIENT | awk '{ print $1}'"):read('*a')
 function vardump(value)  
 print(serpent.block(value, {comment=false}))   
 end 
@@ -36,7 +36,7 @@ end
 file:write(serialized)    
 file:close()  
 end  
-if not IRAQBOT:get(DEVIRAQ..":token") then
+if not pikaBOT:get(DEVpika..":token") then
 io.write('\27[1;31m ↡ ارسل لي توكن البوت الان |\nSEND TOKEN FOR BOT : \27[0;39;49m')
 local token = io.read()
 if token ~= '' then
@@ -45,30 +45,30 @@ if res ~= 200 then
 print('\27[1;34m التوكن غير صحيح تاكد منه ثم ارسله |')
 else
 io.write('\27[1;34m تم حفظ التوكن بنجاح |\n27[0;39;49m')
-IRAQBOT:set(DEVIRAQ..":token",token)
+pikaBOT:set(DEVpika..":token",token)
 end 
 else
 print('\27[1;34m لم يتم حفظ التوكن ارسل لي التوكن الان |')
 end 
 os.execute('lua IRAQ.lua')
 end
-if not IRAQBOT:get(DEVIRAQ..":SUDO:ID") then
+if not IRAQpika:get(DEVIRAQ..":SUDO:ID") then
 io.write('\27[1;31m ↡ ارسل ايدي مطور الاساسي |\n SEND ID FOR SIDO : \27[0;39;49m')
 local SUDOID = io.read()
 if SUDOID ~= '' then
 io.write('\n\27[1;34m تم حفظ ايدي المطور |\n\27[0;39;49m')
-IRAQBOT:set(DEVIRAQ..":SUDO:ID",SUDOID)
+pikaBOT:set(DEVpika..":SUDO:ID",SUDOID)
 else
 print('\n\27[1;34m لم يتم حفظ ايدي المطور |')
 end 
 os.execute('lua IRAQ.lua')
 end
-if not IRAQBOT:get(DEVIRAQ..":SUDO:USERNAME") then
+if not pikaBOT:get(DEVpika..":SUDO:USERNAME") then
 io.write('\27[1;31m ↡ ارسل معرف المطور الاساسي |\n SEND ID FOR SIDO : \27[0;39;49m')
 local SUDOUSERNAME = io.read():gsub('@','')
 if SUDOUSERNAME ~= '' then
 io.write('\n\27[1;34m تم حفظ معرف المطور |\n\27[0;39;49m')
-IRAQBOT:set(DEVIRAQ..":SUDO:USERNAME",'@'..SUDOUSERNAME)
+pikaBOT:set(DEVpika..":SUDO:USERNAME",'@'..SUDOUSERNAME)
 else
 print('\n\27[1;34m لم يتم حفظ معرف المطور |')
 end 
@@ -76,16 +76,16 @@ os.execute('lua IRAQ.lua')
 end
 local create_config_auto = function()
 config = {
-token = IRAQBOT:get(DEVIRAQ..":token"),
-SUDO = IRAQBOT:get(DEVIRAQ..":SUDO:ID"),
-USERNAME = IRAQBOT:get(DEVIRAQ..":SUDO:USERNAME"), }
+token = pikaBOT:get(DEVpika..":token"),
+SUDO = pikaBOT:get(DEVpika..":SUDO:ID"),
+USERNAME = pikaBOT:get(DEVpika..":SUDO:USERNAME"), }
 create(config, "./requfiles/INFO.lua")   
 end
 create_config_auto()
 file = io.open("IRAQ.sh", "w")  
 file:write([[
 #!/bin/bash 
-token="]]..IRAQBOT:get(DEVIRAQ..":token")..[["
+token="]]..pikaBOT:get(DEVpika..":token")..[["
 while(true) do
 rm -fr ../.telegram-cli
 echo -e ""
@@ -111,34 +111,34 @@ local serialize_to_file = function(data, file, uglify)
 file = io.open(file, "w+")  
 local serialized  
 if not uglify then   
-serialized = serpent.block(data, {comment = false, name = "IRAQ_INFO"})  
+serialized = serpent.block(data, {comment = false, name = "pika_INFO"})  
 else   
 serialized = serpent.dump(data) 
 end  
 file:write(serialized)  
 file:close() 
 end 
-local load_IRAQBOT = function()  
+local load_pikaBOT = function()  
 local f = io.open("./requfiles/INFO.lua", "r")  
 if not f then   
 AutoSet()  
 else   
 f:close()  
-IRAQBOT:del(DEVIRAQ..":token")
-IRAQBOT:del(DEVIRAQ..":SUDO:ID")
-IRAQBOT:del(DEVIRAQ..":SUDO:USERNAME")
-IRAQBOT:del(DEVIRAQ..":NAMEBOT")
+pikaBOT:del(DEVpika..":token")
+pikaBOT:del(DEVpika..":SUDO:ID")
+pikaBOT:del(DEVpika..":SUDO:USERNAME")
+pikaBOT:del(DEVpika..":NAMEBOT")
 end  
 local config = loadfile("./requfiles/INFO.lua")() 
 return config 
 end 
-_IRAQBOT = load_IRAQBOT()  
+_pikaBOT = load_pikaBOT()  
 sudos = dofile("requfiles/INFO.lua") 
 SUDO = tonumber(sudos.SUDO)
 sudo_users = {SUDO}
 SUDOUSERNAME = sudos.USERNAME
-IRAQ_ID = sudos.token:match("(%d+)")  
-NAMEBOT = (IRAQBOT:get(IRAQ_ID..'IRAQ:name') or 'عراق')
+pika_ID = sudos.token:match("(%d+)")  
+NAMEBOT = (pikaBOT:get(pika_ID..'IRAQ:name') or 'عراق')
 bot_id = sudos.token:match("(%d+)")  
 chaneel = sudos.token 
 plugins = {}
@@ -167,7 +167,7 @@ end  end
 return ta  
 end 
 function is_sudo(msg) 
-local hash = IRAQBOT:sismember(IRAQ_ID..'sudo:bot',msg.sender_user_id_)  
+local hash = pikaBOT:sismember(pika_ID..'sudo:bot',msg.sender_user_id_)  
 if hash or is_devtaha(msg)  then  
 return true  
 else  
@@ -180,62 +180,62 @@ else
 return false 
 end end 
 function is_owner(msg) 
-local hash = IRAQBOT:sismember(IRAQ_ID..'moder'..msg.chat_id_,msg.sender_user_id_)    
+local hash = pikaBOT:sismember(IRAQ_ID..'moder'..msg.chat_id_,msg.sender_user_id_)    
 if hash or is_devtaha(msg) or is_sudo(msg) then    
 return true    
 else    
 return false    
 end end
 function is_monsh(msg) 
-local hash = IRAQBOT:sismember(IRAQ_ID..'modergroup'..msg.chat_id_,msg.sender_user_id_)    
+local hash = pikaBOT:sismember(pika_ID..'modergroup'..msg.chat_id_,msg.sender_user_id_)    
 if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) then    
 return true    
 else    
 return false    
 end end
 function is_canban(msg) 
-local hash = IRAQBOT:sismember(IRAQ_ID..'SET:BAN'..msg.chat_id_,msg.sender_user_id_)    
+local hash = pikaBOT:sismember(IRAQ_ID..'SET:BAN'..msg.chat_id_,msg.sender_user_id_)    
 if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) then    
 return true    
 else    
 return false    
 end end
 function is_mod(msg) 
-local hash = IRAQBOT:sismember(IRAQ_ID..'mods:'..msg.chat_id_,msg.sender_user_id_)    
+local hash = pikaBOT:sismember(pika_ID..'mods:'..msg.chat_id_,msg.sender_user_id_)    
 if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) or is_monsh(msg) then    
 return true    
 else    
 return false    
 end end
 function is_vipgroups(msg)  
-local hash = IRAQBOT:sismember(IRAQ_ID..'vip:groups',msg.sender_user_id_) 
+local hash = pikaBOT:sismember(IRAQ_ID..'vip:groups',msg.sender_user_id_) 
 if hash or  is_devtaha(msg) then 
 return true 
 else 
 return false 
 end end
 function is_vipgroup(msg)  
-local hash = IRAQBOT:sismember(IRAQ_ID..'vip:group'..msg.chat_id_,msg.sender_user_id_) 
+local hash = pikaBOT:sismember(IRAQ_ID..'vip:group'..msg.chat_id_,msg.sender_user_id_) 
 if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) or is_mod(msg) or is_vipgroups(msg) then 
 return true 
 else 
 return false 
 end end
 function is_memar(msg)  
-local hash = IRAQBOT:sismember(IRAQ_ID..'mepar',msg.sender_user_id_) 
+local hash = pikaBOT:sismember(pika_ID..'mepar',msg.sender_user_id_) 
 if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) or is_mod(msg) or is_mod(msg) or is_vipgroup(msg) or is_vipgroups(msg) then 
 return true 
 else 
 return false 
 end end
 function is_banned(chat,user) 
-local hash =  IRAQBOT:sismember(IRAQ_ID..'IRAQ:baned'..chat,user) 
+local hash =  pikaBOT:sismember(pika_ID..'IRAQ:baned'..chat,user) 
 if hash then return true 
 else 
 return false 
 end end
 function is_gban(chat,user) 
-local hash =  IRAQBOT:sismember(IRAQ_ID..'IRAQ:gbaned',user) 
+local hash =  pikaBOT:sismember(pika_ID..'IRAQ:gbaned',user) 
 if hash then 
 return true 
 else 
@@ -247,7 +247,7 @@ end
 local function getParseMode(parse_mode)  
 local P  if parse_mode then  local mode = parse_mode:lower() if mode == 'markdown' or mode == 'md' then  P = {ID = "TextParseModeMarkdown"} elseif mode == 'html' then   P = {ID = "TextParseModeHTML"}    end  end  return P 
 end    
-function IRAQ_sendMsg(chat_id, replytomessageid, from_background, text, DisableWebPagePreview, parsemode, user, cd, IRAQ)
+function pika_sendMsg(chat_id, replytomessageid, from_background, text, DisableWebPagePreview, parsemode, user, cd, pika)
 if parsemode and parsemode ~= nil and parsemode ~= false and parsemode ~= "" then
 parsemode = getParseMode(parsemode) else parsemode = nil end
 Entities = {}
@@ -279,19 +279,19 @@ end
 function sleep(n) os.execute("sleep " .. tonumber(n)) end  
 function add_in_ch(msg)
 local var = true
-if IRAQBOT:get(IRAQ_ID..'add:ch:id') then
-tahaid = IRAQBOT:get(IRAQ_ID..'add:ch:id')
-tahauser = IRAQBOT:get(IRAQ_ID..'add:ch:username')
+if pikaBOT:get(pika_ID..'add:ch:id') then
+tahaid = pikaBOT:get(pika_ID..'add:ch:id')
+tahauser = pikaBOT:get(pika_ID..'add:ch:username')
 local url , res = https.request("https://api.telegram.org/bot"..chaneel.."/getchatmember?chat_id="..tahaid.."&user_id="..msg.sender_user_id_);
 data = json:decode(url)
 if res ~= 200 or data.result.status == "left" or data.result.status == "kicked" then
 var = false
-if IRAQBOT:get(IRAQ_ID..'text:ch:user') then
-local textchuser = IRAQBOT:get(IRAQ_ID..'text:ch:user')
+if pikaBOT:get(IRAQ_ID..'text:ch:user') then
+local textchuser = pikaBOT:get(IRAQ_ID..'text:ch:user')
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '['..textchuser..']', 1, 'md')
 else
 chdeva = '\n*📮¦ لا تستطيع استخدام البوت 🍃\n📬¦ عليك الاشتراك في قناة البوت\n🔖¦ معرف القناة  ↡\n* ['..tahauser..']\n✓'
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, chdeva, 1, 'md');
+pika_sendMsg(msg.chat_id_, msg.id_, 1, chdeva, 1, 'md');
 end
 elseif data.ok then
 return var
@@ -300,13 +300,13 @@ else
 return var
 end
 end
-local function IRAQ_send(chat_id, reply_to_message_id, text)
+local function pika_send(chat_id, reply_to_message_id, text)
 local TextParseMode = {ID = "TextParseModeMarkdown"}
 tdcli_function ({ID = "SendMessage",chat_id_ = chat_id,reply_to_message_id_ = reply_to_message_id,disable_notification_ = 1,from_background_ = 1,reply_markup_ = nil,input_message_content_ = {ID = "InputMessageText",text_ = text,disable_web_page_preview_ = 1,clear_draft_ = 0,entities_ = {},parse_mode_ = TextParseMode,},}, dl_cb, nil)
 end
 function getrtp(chat,user) 
-local sudoe = IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user) 
-local noow = IRAQBOT:sismember(IRAQ_ID..'moder'..chat,user) 
+local sudoe = pikaBOT:sismember(pika_ID..'sudo:bot',user) 
+local noow = pikaBOT:sismember(pika_ID..'moder'..chat,user) 
 if tonumber(SUDO) == tonumber(user) or sudoe or monh   then 
 return true 
 else 
@@ -314,8 +314,8 @@ return false
 end 
 end 
 function getrtpno(chat,user) 
-local moder =  IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat,user) 
-local mod IRAQBOT:sismember(IRAQ_ID..'mods:'..chat,user) 
+local moder =  pikaBOT:sismember(pika_ID..'modergroup'..chat,user) 
+local mod pikaBOT:sismember(IRAQ_ID..'mods:'..chat,user) 
 if not moder or not mod  then 
 return true 
 else 
@@ -407,14 +407,14 @@ tdcli_function ({   ID = "GetChatMember", chat_id_ = chat_id, user_id_ = user_id
 end
 function seavusername(id)  tdcli_function ({ID = "GetUser",user_id_ = id},function(arg,data) 
 local username = data.username_ if username then
-IRAQBOT:set(IRAQ_ID.."user:Name"..id, "@"..username)
+pikaBOT:set(pika_ID.."user:Name"..id, "@"..username)
 print('\27[30;35m»» USERNAME IS SAEVE ↓\n»» @'..data.username_..'\n\27[1;37m') else
-IRAQBOT:del(IRAQ_ID.."user:Name"..id)
+IRAQBOT:del(pika_ID.."user:Name"..id)
 print('»» USERNAME IS NOT SAEVE') end
 if data.type_.ID == "UserTypeBot" then
-IRAQBOT:del(IRAQ_ID.."user:Name"..id) end
+pikaBOT:del(pika_ID.."user:Name"..id) end
 if data.first_name_ == false then
-IRAQBOT:del(IRAQ_ID.."user:Name"..id)
+pikaBOT:del(pika_ID.."user:Name"..id)
 end end,nil)   
 end
 function CatchName(Name,Num) 
@@ -517,17 +517,17 @@ end
 function get_mokforkick(chat_id,user_id)
 if tonumber(user_id) == tonumber(SUDO) then
 t = 'المطور'
-elseif IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user_id) then
+elseif pikaBOT:sismember(pika_ID..'sudo:bot',user_id) then
 t = 'المطور'
-elseif IRAQBOT:sismember(IRAQ_ID..'moder'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'moder'..chat_id,user_id) then
 t = 'المنشئ'
-elseif IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'modergroup'..chat_id,user_id) then
 t = 'المدير'
-elseif IRAQBOT:sismember(IRAQ_ID..'mods:'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'mods:'..chat_id,user_id) then
 t = 'الادمن'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:groups',user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:groups',user_id) then
 t = 'المميز عام'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:group'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:group'..chat_id,user_id) then
 t = 'المميز'
 else
 t = ' '
@@ -537,17 +537,17 @@ end
 function get_mok(chat_id,user_id)
 if tonumber(user_id) == tonumber(SUDO) then
 t = 'المطور'
-elseif IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user_id) then
+elseif pikaBOT:sismember(pika_ID..'sudo:bot',user_id) then
 t = 'المطور'
-elseif IRAQBOT:sismember(IRAQ_ID..'moder'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'moder'..chat_id,user_id) then
 t = 'المنشئ'
-elseif IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'modergroup'..chat_id,user_id) then
 t = 'المدير'
-elseif IRAQBOT:sismember(IRAQ_ID..'mods:'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'mods:'..chat_id,user_id) then
 t = 'الادمن'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:groups',user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:groups',user_id) then
 t = 'مميز عام'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:group'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:group'..chat_id,user_id) then
 t = 'مميز'
 else
 t = ' '
@@ -557,17 +557,17 @@ end
 function get_rtpa(chat_id,user_id)
 if tonumber(user_id) == tonumber(SUDO) then
 t = 'مطور اساسي 💥'
-elseif IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user_id) then
+elseif pikaBOT:sismember(pika_ID..'sudo:bot',user_id) then
 t = 'مطور البوت 👨🏻‍💻'
-elseif IRAQBOT:sismember(IRAQ_ID..'moder'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'moder'..chat_id,user_id) then
 t = 'منشئ 👨🏻‍✈️'
-elseif IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'modergroup'..chat_id,user_id) then
 t = 'مدير 👨🏻‍💼'
-elseif IRAQBOT:sismember(IRAQ_ID..'mods:'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'mods:'..chat_id,user_id) then
 t = 'ادمن 👮🏻‍♂'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:groups',user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:groups',user_id) then
 t = 'مميز عام 🌟'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:group'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:group'..chat_id,user_id) then
 t = 'مميز ⭐'
 else
 t = 'عضو 🙋🏻‍♂'
@@ -577,39 +577,39 @@ end
 function get_mok2(chat_id,user_id)
 if tonumber(user_id) == tonumber(SUDO) then
 t = 'المطورين'
-elseif IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user_id) then
+elseif pikaBOT:sismember(pika_ID..'sudo:bot',user_id) then
 t = 'المطورين'
-elseif IRAQBOT:sismember(IRAQ_ID..'moder'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'moder'..chat_id,user_id) then
 t = 'المنشئين'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:groups',user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:groups',user_id) then
 t = 'المميزين عام'
 else
 t = ' '
 end
 return t end
 function get_mok3(chat_id,user_id)
-if IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat_id,user_id) then
+if pikaBOT:sismember(pika_ID..'modergroup'..chat_id,user_id) then
 t = 'المدير'
-elseif IRAQBOT:sismember(IRAQ_ID..'mods:'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'mods:'..chat_id,user_id) then
 t = 'الادمن'
-elseif IRAQBOT:sismember(IRAQ_ID..'vip:group'..chat_id,user_id) then
+elseif pikaBOT:sismember(pika_ID..'vip:group'..chat_id,user_id) then
 t = 'المميز'
 else
 t = ' '
 end
 return t end
 local function rem_lockal(chat_id)
-IRAQBOT:del(IRAQ_ID.."lock:user:name"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:hashtak"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Cmd"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Link"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:forward"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Keyboard"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:geam"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Photo"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Animation"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Video"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Audio"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:vico"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Sticker"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Document"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Unsupported"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Markdaun"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Contact"..chat_id)  IRAQBOT:del(IRAQ_ID.."lock:Spam"..chat_id)
+pikaBOT:del(pika_ID.."lock:user:name"..chat_id)  pikaBOT:del(pika_ID.."lock:hashtak"..chat_id)  pikaBOT:del(pika_ID.."lock:Cmd"..chat_id)  pikaBOT:del(pika_ID.."lock:Link"..chat_id)  pikaBOT:del(pika_ID.."lock:forward"..chat_id)  pikaBOT:del(pika_ID.."lock:Keyboard"..chat_id)  pikaBOT:del(pika_ID.."lock:geam"..chat_id)  pikaBOT:del(pika_ID.."lock:Photo"..chat_id)  pikaBOT:del(pika_ID.."lock:Animation"..chat_id)  pikaBOT:del(pika_ID.."lock:Video"..chat_id)  pikaBOT:del(pika_ID.."lock:Audio"..chat_id)  pikaBOT:del(pika_ID.."lock:vico"..chat_id)  pikaBOT:del(pika_ID.."lock:Sticker"..chat_id)  pikaBOT:del(pika_ID.."lock:Document"..chat_id)  pikaBOT:del(pika_ID.."lock:Unsupported"..chat_id)  pikaBOT:del(pika_ID.."lock:Markdaun"..chat_id)  pikaBOT:del(pika_ID.."lock:Contact"..chat_id)  pikaBOT:del(pika_ID.."lock:Spam"..chat_id)
 end
 local function add_lockal(chat_id)
-IRAQBOT:set(IRAQ_ID.."lock:Bot:kick"..chat_id,'del')  IRAQBOT:set(IRAQ_ID..'lock:tagservrbot'..chat_id,true)   IRAQBOT:set(IRAQ_ID.."lock:user:name"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:hashtak"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Cmd"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Link"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:forward"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Keyboard"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:geam"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Photo"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Animation"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Video"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Audio"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:vico"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Sticker"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Document"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Unsupported"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Markdaun"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Contact"..chat_id,'del')    IRAQBOT:set(IRAQ_ID.."lock:Spam"..chat_id,'del')  
+pikaBOT:set(pika_ID.."lock:Bot:kick"..chat_id,'del')  pikaBOT:set(pika_ID..'lock:tagservrbot'..chat_id,true)   pikaBOT:set(pika_ID.."lock:user:name"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:hashtak"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Cmd"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Link"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:forward"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Keyboard"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:geam"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Photo"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Animation"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Video"..chat_id,'del')    IRAQBOT:set(pika_ID.."lock:Audio"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:vico"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Sticker"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Document"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Unsupported"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Markdaun"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Contact"..chat_id,'del')    pikaBOT:set(pika_ID.."lock:Spam"..chat_id,'del')  
 end
 function rem_group(chat_id) 
-IRAQBOT:srem(IRAQ_ID..'bot:gpsby:id',chat_id) IRAQBOT:del(IRAQ_ID.."test:group"..chat_id)   IRAQBOT:srem(IRAQ_ID.."bot:gps:id", chat_id) IRAQBOT:del(IRAQ_ID.."add:bot:group"..chat_id,true) 
+pikaBOT:srem(pika_ID..'bot:gpsby:id',chat_id) pikaBOT:del(pika_ID.."test:group"..chat_id)   pikaBOT:srem(pika_ID.."bot:gps:id", chat_id) pikaBOT:del(pika_ID.."add:bot:group"..chat_id,true) 
 rem_lockal(chat_id) 
 end
 function add_group(chat_id) 
-IRAQBOT:sadd(IRAQ_ID..'bot:gpsby:id',chat_id) IRAQBOT:sadd(IRAQ_ID.."botgps",chat_id)  IRAQBOT:set(IRAQ_ID.."test:group"..chat_id,'IRAQ')    IRAQBOT:set(IRAQ_ID.."add:bot:group"..chat_id, true)   
+pikaBOT:sadd(pika_ID..'bot:gpsby:id',chat_id) pikaBOT:sadd(pika_ID.."botgps",chat_id)  pikaBOT:set(pika_ID.."test:group"..chat_id,'pika')    pikaBOT:set(pika_ID.."add:bot:group"..chat_id, true)   
 add_lockal(chat_id)
 end
 function get_rtba(msg) 
@@ -634,31 +634,31 @@ function check_markdown(text)
 str = text if str then if str:match('_') then output = str:gsub('_',[[_]]) elseif str:match('*') then output = str:gsub('*','\\*') elseif str:match('`') then output = str:gsub('`','\\`') else output = str end return output end 
 end
 function is_filter(msg, value)  
-local names = IRAQBOT:smembers(IRAQ_ID..'filters:'..msg.chat_id_)  local var = false for i=1, #names do  if names[i] == value and not is_vipgroup(msg) then  var = true      end end return var  
+local names = pikaBOT:smembers(pika_ID..'filters:'..msg.chat_id_)  local var = false for i=1, #names do  if names[i] == value and not is_vipgroup(msg) then  var = true      end end return var  
 end 
 function is_muted(chat,user)
-local hash =  IRAQBOT:sismember(IRAQ_ID..'mutes'..chat,user) if hash then return true else return false end 
+local hash =  pikaBOT:sismember(pika_ID..'mutes'..chat,user) if hash then return true else return false end 
 end
-function IRAQmonshn(chat_id, user_id, msg_id, text, offset, length) 
+function pikamonshn(chat_id, user_id, msg_id, text, offset, length) 
 tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = msg_id, disable_notification_ = 0, from_background_ = 1, reply_markup_ = nil, input_message_content_ = { ID = "InputMessageText", text_ = text, disable_web_page_preview_ = 1, clear_draft_ = 0, entities_ = {[0]={ ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user_id }, }, }, }, dl_cb, nil) 
 end
-function IRAQ1(chat,user) 
-local sudoe = IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user) local vipss = IRAQBOT:sismember(IRAQ_ID..'vip:groups',user)  local monh = IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat,user)  local noow = IRAQBOT:sismember(IRAQ_ID..'moder'..chat,user)  local nomo = IRAQBOT:sismember(IRAQ_ID..'mods:'..chat,user)  local novip2 = IRAQBOT:sismember(IRAQ_ID..'vip:group'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or monh  or noow or nomo  or novip2 then  return true  else  return false  end  
+function pika1(chat,user) 
+local sudoe = pikaBOT:sismember(pika_ID..'sudo:bot',user) local vipss = pikaBOT:sismember(pika_ID..'vip:groups',user)  local monh = pikaBOT:sismember(pika_ID..'modergroup'..chat,user)  local noow = pikaBOT:sismember(pika_ID..'moder'..chat,user)  local nomo = pikaBOT:sismember(pika_ID..'mods:'..chat,user)  local novip2 = pikaBOT:sismember(pika_ID..'vip:group'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or monh  or noow or nomo  or novip2 then  return true  else  return false  end  
 end 
-function IRAQ2(chat,user) 
-local sudoe = IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user) local vipss = IRAQBOT:sismember(IRAQ_ID..'vip:groups',user)  local noow = IRAQBOT:sismember(IRAQ_ID..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or noow  then  return true else  return false end 
+function pika2(chat,user) 
+local sudoe = pikaBOT:sismember(pika_ID..'sudo:bot',user) local vipss = pikaBOT:sismember(pika_ID..'vip:groups',user)  local noow = pikaBOT:sismember(pika_ID..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or noow  then  return true else  return false end 
 end 
-function IRAQ3(chat,user) 
-local sudoe = IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user) local noow = IRAQBOT:sismember(IRAQ_ID..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or monh   then return true else return false end 
+function pika3(chat,user) 
+local sudoe = pikaBOT:sismember(pika_ID..'sudo:bot',user) local noow = pikaBOT:sismember(pika_ID..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or monh   then return true else return false end 
 end 
-function IRAQ4(chat,user) 
-local sudoe = IRAQBOT:sismember(IRAQ_ID..'sudo:bot',user) local noow = IRAQBOT:sismember(IRAQ_ID..'moder'..chat,user)  local monh = IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat,user)     local memr = IRAQBOT:sismember(IRAQ_ID..'mepar',user)    if tonumber(SUDO) == tonumber(user) or sudoe or monh or memr or noow then     return true     else     return false     end     
+function pika4(chat,user) 
+local sudoe = pikaBOT:sismember(pika_ID..'sudo:bot',user) local noow = pikaBOT:sismember(pika_ID..'moder'..chat,user)  local monh = pikaBOT:sismember(pika_ID..'modergroup'..chat,user)     local memr = pikaBOT:sismember(IRAQ_ID..'mepar',user)    if tonumber(SUDO) == tonumber(user) or sudoe or monh or memr or noow then     return true     else     return false     end     
 end 
 function getInputFile(file) 
 local input = tostring(file) if file:match('/') then infile = {ID = "InputFileLocal", path_ = file} elseif file:match('^%d+$') then infile = {ID = "InputFileId", id_ = file} else infile = {ID = "InputFilePersistentId", persistent_id_ = file} end return infile 
 end
-function send_inlineIRAQ(chat_id,text,keyboard,inline,reply_id) 
-local url = 'https://api.telegram.org/bot'..chaneel if keyboard then IRAQtoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text='..URL.escape(text)..'&parse_mode=html&reply_markup='..URL.escape(json:encode(keyboard)) else IRAQtoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text=' ..URL.escape(text)..'&parse_mode=html' end https.request(IRAQtoken) 
+function send_inlinepika(chat_id,text,keyboard,inline,reply_id) 
+local url = 'https://api.telegram.org/bot'..chaneel if keyboard then pikatoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text='..URL.escape(text)..'&parse_mode=html&reply_markup='..URL.escape(json:encode(keyboard)) else pikatoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text=' ..URL.escape(text)..'&parse_mode=html' end https.request(pikatoken) 
 end
 local function getUserProfilePhotos(user_id, offset, limit, cb, cmd)  
 tdcli_function ({  ID = "GetUserProfilePhotos",   user_id_ = user_id,  offset_ = offset,  limit_ = limit  }, cb or dl_cb, cmd) 
@@ -705,7 +705,7 @@ end
 local function pinChannelMessage(channel_id, message_id,disable_notification) 
 tdcli_function ({ ID = "PinChannelMessage", channel_id_ = getChatId(channel_id).ID, message_id_ = message_id, disable_notification_ = disable_notification, }, dl_cb, nil) 
 end
-local function IRAQ_sendMssg(chat_id, text, reply_to_message_id, markdown) 
+local function pika_sendMssg(chat_id, text, reply_to_message_id, markdown) 
 send_api = "https://api.telegram.org/bot"..chaneel local url = send_api..'/sendMessage?chat_id=' .. chat_id .. '&text=' .. URL.escape(text) if reply_to_message_id ~= 0 then url = url .. '&reply_to_message_id=' .. reply_to_message_id/2097152/0.5  end if markdown == 'md' or markdown == 'markdown' then url = url..'&parse_mode=Markdown' elseif markdown == 'html' then url = url..'&parse_mode=HTML' end return s_api(url)  
 end
 local function GetInputFile(file)  
@@ -724,10 +724,10 @@ local function getchat(GroupID,func)
 pcall(tdcli_function({ID="GetChat",chat_id_ = GroupID},func or dl_cb,nil)) 
 end
 local function numrgroup(GroupID)  
-tdcli_function ({ ID = "GetChannelFull",channel_id_ = getChatId(GroupID).ID },function(arg,tah)   IRAQBOT:set(IRAQ_ID.."numgrop"..GroupID,tah.member_count_) end,nil)  return IRAQBOT:get(IRAQ_ID.."numgrop"..GroupID)   
+tdcli_function ({ ID = "GetChannelFull",channel_id_ = getChatId(GroupID).ID },function(arg,tah)   pikaBOT:set(pika_ID.."numgrop"..GroupID,tah.member_count_) end,nil)  return pikaBOT:get(IRAQ_ID.."numgrop"..GroupID)   
 end
 local function title_name(GroupID) 
-pcall(tdcli_function({ID ="GetChat",chat_id_=GroupID },function(arg,data)  IRAQBOT:set(IRAQ_ID..'group:name'..GroupID,data.title_)  end,nil)) return IRAQBOT:get(IRAQ_ID..'group:name'..GroupID)  
+pcall(tdcli_function({ID ="GetChat",chat_id_=GroupID },function(arg,data)  pikaBOT:set(pika_ID..'group:name'..GroupID,data.title_)  end,nil)) return pikaBOT:get(IRAQ_ID..'group:name'..GroupID)  
 end
 local function changeChatTitle(chat_id, title) 
 tdcli_function ({ ID = "ChangeChatTitle", chat_id_ = chat_id, title_ = title }, dl_cb, nil) 
@@ -748,7 +748,7 @@ local function adduser(chat_id, user_id, forward_limit)
 tdcli_function ({ ID = "AddChatMember", chat_id_ = chat_id, user_id_ = user_id, forward_limit_ = forward_limit or 50 }, dl_cb, nil) 
 end
 local function kick(msg,chat,user)  
-if tonumber(user) == tonumber(bot_id) then  return false  end  if IRAQ1(chat,user) then  else  changeChatMemberStatus(chat, user, "Kicked")  tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil) end  
+if tonumber(user) == tonumber(bot_id) then  return false  end  if pika1(chat,user) then  else  changeChatMemberStatus(chat, user, "Kicked")  tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil) end  
 end
 local function kicck(msg,chat,user)   
 if tonumber(user) == tonumber(bot_id) then   return false   else  changeChatMemberStatus(chat, user, "Kicked")   tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil)  end   
