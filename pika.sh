@@ -16,5 +16,5 @@ echo ""
 echo ""
 exit 1
 fi
-./tg -s IRAQ.lua
+./tg -s pika.lua
 fi
