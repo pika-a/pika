@@ -1,6 +1,0 @@
-killall screen
-while(true) do
-rm -fr ../.telegram-cli
-screen ./pika.sh
-done
-echo -e "pika IS RUN BOT"
