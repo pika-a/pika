@@ -16,5 +16,5 @@ echo ""
 echo ""
 exit 1
 fi
-./tg -s pika.lua
+./tg -s PIKA.lua
 fi
