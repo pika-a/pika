@@ -94,7 +94,7 @@ echo -e ""
 done
 ]])  
 file:close()  
-file = io.open("RQ", "w")  
+file = io.open("pi", "w")  
 file:write([[
 killall screen
 while(true) do
@@ -105,7 +105,7 @@ echo -e "pika IS RUN BOT"
 ]])  
 file:close() 
 os.execute('rm -fr $HOME/.telegram-cli')
-os.execute('./RQ')
+os.execute('./pi')
  end 
 local serialize_to_file = function(data, file, uglify)  
 file = io.open(file, "w+")  
