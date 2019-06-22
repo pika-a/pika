@@ -1,15 +1,15 @@
 local function GET_TEXT(msg)
 if chat_type == 'super' then 
-if IRAQBOT:get(IRAQ_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then   
+if pikaOT:get(pika_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then   
 if text and text:match("^الغاء$") then 
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*💥¦* تم الغاء امر الزخرفه ✔", 1, "md")
-IRAQBOT:del(IRAQ_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
+pika_sendMsg(msg.chat_id_, msg.id_, 1, "*💥¦* تم الغاء امر الزخرفه ✔", 1, "md")
+pikaBOT:del(pika_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
 return false
 end
 if text then
 if utf8.len(text) > 20 then
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ لا يمكن زخرفة اكثر من 20 حرف *', 1, 'md') 
-IRAQBOT:del(IRAQ_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
+pika_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ لا يمكن زخرفة اكثر من 20 حرف *', 1, 'md') 
+pikaBOT:del(pika_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
 return false
 end
 local zhrf1 = text:gsub('ض', 'ضِٰـِۢ')
@@ -1288,8 +1288,8 @@ local RANDROM={'•💚','🍿﴿','❥˓ ','💝﴿ֆ','🐼🌿','🙊💙','
 local TEXTSHER = '\n*📮¦ اهلا بك عزيزي المستخدم\n🗃¦ اضغط على الاسم ليتم نسخه *\nٴ━━━━━━━━━━\n'
 local TEXT_end = '*\nٴ━━━━━━━━━━\n📌¦ مطور البوت* ❪['..SUDOUSERNAME..']❫'
 local SEND_SKRF = TEXTSHER..'*1 »* `'..zhrf1..' '..RANDROM[math.random(#RANDROM)]..'`\n*2 »* `'..zhrf2..' '..RANDROM[math.random(#RANDROM)]..'`\n*3 »* `'..zhrf3..' '..RANDROM[math.random(#RANDROM)]..'`\n*4 »* `'..zhrf4..' '..RANDROM[math.random(#RANDROM)]..'`\n*5 »* `'..zhrf5..' '..RANDROM[math.random(#RANDROM)]..'`\n*6 »* `'..zhrf6..' '..RANDROM[math.random(#RANDROM)]..'`\n*7 »* `'..zhrf7..' '..RANDROM[math.random(#RANDROM)]..'`\n*8 »* `'..zhrf8..' '..RANDROM[math.random(#RANDROM)]..'`\n*9 »* `'..zhrf9..' '..RANDROM[math.random(#RANDROM)]..'`\n*10 »* `'..zhrf10..' '..RANDROM[math.random(#RANDROM)]..'`\n*11 »* `'..zhrf11..' '..RANDROM[math.random(#RANDROM)]..'`\n*12 »* `'..zhrf12..' '..RANDROM[math.random(#RANDROM)]..'`\n*13 »* `'..zhrf13..' '..RANDROM[math.random(#RANDROM)]..'`\n*14 »* `'..zhrf14..' '..RANDROM[math.random(#RANDROM)]..'`\n*15 »* `'..zhrf15..' '..RANDROM[math.random(#RANDROM)]..'`\n*16 »* `'..zhrf16..' '..RANDROM[math.random(#RANDROM)]..'`\n*17 »* `'..zhrf17..' '..RANDROM[math.random(#RANDROM)]..'`\n*18 »* `'..zhrf18..' '..RANDROM[math.random(#RANDROM)]..'`'..TEXT_end
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, SEND_SKRF,  1, "md")
-IRAQBOT:del(IRAQ_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
+pika_sendMsg(msg.chat_id_, msg.id_, 1, SEND_SKRF,  1, "md")
+pikaBOT:del(pika_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_)     
 end
 end
 end
@@ -1297,34 +1297,34 @@ end
 local function zhrfa(msg)
 if chat_type == 'super' then 
 if MSG_TEXT[1] == 'تفعيل الزخرفه' and is_mod(msg) then   
-if IRAQBOT:get(IRAQ_ID..'lock:skrfa'..msg.chat_id_)  then
+if pikaBOT:get(pika_ID..'lock:skrfa'..msg.chat_id_)  then
 taha = '*📮¦ تم تفعيل الزخرفه *\n✓' 
-IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-IRAQBOT:del(IRAQ_ID..'lock:skrfa'..msg.chat_id_) 
+pika_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+pikaBOT:del(pika_ID..'lock:skrfa'..msg.chat_id_) 
 else
 taha = '*📮¦ بالتاكيد تم تفعيل الزخرفه  *\n✓' 
-IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+pika_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 return false
 end
 if MSG_TEXT[1] == 'تعطيل الزخرفه' and is_mod(msg) then   
-if not IRAQBOT:get(IRAQ_ID..'lock:skrfa'..msg.chat_id_)  then
+if not pikaBOT:get(pika_ID..'lock:skrfa'..msg.chat_id_)  then
 taha = '*📮¦ تم تعطيل الزخرفه *\n✓' 
-IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-IRAQBOT:set(IRAQ_ID..'lock:skrfa'..msg.chat_id_,true) 
+pika_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+pikaBOT:set(pika_ID..'lock:skrfa'..msg.chat_id_,true) 
 else
 taha = '*📮¦ بالتاكيد تم تعطيل الزخرفه  *\n✓' 
-IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+pika_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 return false
 end
 if MSG_TEXT[1] == ("زخرفه") or MSG_TEXT[1] == ("زخرف") then
-if not IRAQBOT:get(IRAQ_ID.."lock:skrfa"..msg.chat_id_) then   
-IRAQBOT:setex(IRAQ_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)   
+if not pikaBOT:get(pika_ID.."lock:skrfa"..msg.chat_id_) then   
+pikaBOT:setex(pika_ID.."skrafa:name" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)   
 local t = '*⚡¦* ارسل الاسم الذي تريد زخرفته \n*📬¦* سواء كان بالعربي او بالانكلش 🍁'   
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
+pika_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
 else
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ الزخرفه معطله *', 1, 'md') 
+pika_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ الزخرفه معطله *', 1, 'md') 
 end
 return false
 end
@@ -1341,8 +1341,8 @@ CMDS = {
 "^(تفعيل الزخرفه)$",
 "^(تعطيل الزخرفه)$",
 },
-IRAQ = zhrfa,
-IRAQ_TEXT = GET_TEXT
+pika = zhrfa,
+pika_TEXT = GET_TEXT
 }
 
 
