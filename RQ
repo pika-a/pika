@@ -1,6 +1,0 @@
-killall screen
-while(true) do
-rm -fr ../.telegram-cli
-screen ./IRAQ.sh
-done
-echo -e "IRAQ IS RUN BOT"
